@@ -4,24 +4,26 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./auth_service_microservice/backend/Dockerfile
+    dockerContext: ./auth_service_microservice/backend
     autoDeploy: true
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: auth-db
-          property: connectionString
+    - key: DATABASE_URL
+      fromDatabase:
+        name: auth-db
+        property: connectionString
 
   - type: web
     name: institution-service
     env: docker
     plan: free
     dockerfilePath: ./institution_service_microservice/backend/Dockerfile
+    dockerContext: ./institution_service_microservice/backend
     autoDeploy: true
     envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: institution-db
-          property: connectionString
+    - key: DATABASE_URL
+      fromDatabase:
+        name: institution-db
+        property: connectionString
 
   - type: web
     name: vocational-frontend
