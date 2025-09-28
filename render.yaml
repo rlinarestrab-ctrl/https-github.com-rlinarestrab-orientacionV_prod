@@ -23,14 +23,14 @@ services:
           name: institution-db
           property: connectionString
 
-  - type: static
+  - type: web
     name: vocational-frontend
-    env: static
+    runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE
-        value: https://auth-service.onrender.com   # o el API gateway si lo tuvieras
+        value: https://auth-service.onrender.com   # luego pon la URL real
 
 databases:
   - name: auth-db
