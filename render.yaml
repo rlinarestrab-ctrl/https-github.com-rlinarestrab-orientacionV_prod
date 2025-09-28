@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: auth-service
+    env: docker
+    plan: free
+    dockerfilePath: ./auth_service_microservice/backend/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: auth-db
+          property: connectionString
+
+  - type: web
+    name: institution-service
+    env: docker
+    plan: free
+    dockerfilePath: ./institution_service_microservice/backend/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: institution-db
+          property: connectionString
+
+  - type: static
+    name: vocational-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://auth-service.onrender.com   # o el API gateway si lo tuvieras
+
+databases:
+  - name: auth-db
+    plan: free
+  - name: institution-db
+    plan: free
